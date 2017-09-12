@@ -2,24 +2,100 @@ package com.jsoft.pos.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.OneToOne;
+
+@SuppressWarnings("serial")
+@Entity
 public class Invoice implements Serializable {
 
-    private long id;
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	private long id;
+	private int totalPrice;
+	private int totalItem;
+	private int taxAmount;
+	private int discount;
+	private int payPrice;
+	private int change;
+	@OneToOne
+	private Trade trade;
 
-    private int totalPrice;
+	private boolean isDeleted;
 
-    private int totalItem;
+	public long getId() {
+		return id;
+	}
 
-    private int taxAmount;
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    private int discount;
+	public int getTotalPrice() {
+		return totalPrice;
+	}
 
-    private int payPrice;
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
-    private int change;
+	public int getTotalItem() {
+		return totalItem;
+	}
 
-    private boolean isDeleted;
+	public void setTotalItem(int totalItem) {
+		this.totalItem = totalItem;
+	}
 
-    private Trade trade;
+	public int getTaxAmount() {
+		return taxAmount;
+	}
+
+	public void setTaxAmount(int taxAmount) {
+		this.taxAmount = taxAmount;
+	}
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+
+	public int getPayPrice() {
+		return payPrice;
+	}
+
+	public void setPayPrice(int payPrice) {
+		this.payPrice = payPrice;
+	}
+
+	public int getChange() {
+		return change;
+	}
+
+	public void setChange(int change) {
+		this.change = change;
+	}
+
+	public Trade getTrade() {
+		return trade;
+	}
+
+	public void setTrade(Trade trade) {
+		this.trade = trade;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
 
 }

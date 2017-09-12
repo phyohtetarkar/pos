@@ -19,11 +19,9 @@ public abstract class AbstractSearchRepo<T> implements SearchableRepository<T> {
 		this.type = type;
 	}
 
-	protected abstract String getBaseQuery();
-
 	@Override
 	public List<T> search(String where, Map<String, Object> params, int first, int max) {
-		StringBuffer sb = new StringBuffer(getBaseQuery());
+		StringBuffer sb = new StringBuffer(String.format("select t from %s t ", type.getSimpleName()));
 
 		if (null != where && !where.isEmpty()) {
 			sb.append(where);

@@ -1,31 +1,31 @@
 package com.jsoft.pos.service;
 
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jsoft.pos.entity.Counter;
 import com.jsoft.pos.repo.CounterRepo;
 
 @Service
+@Transactional
 public class CounterService {
 
 	@Autowired
     private CounterRepo repo;
 
-    public Set<Counter> findAll() {
-        // TODO implement here
-        return null;
+    public List<Counter> findAll() {
+        return repo.findAll();
     }
 
     public Counter findById(int id) {
-        // TODO implement here
-        return null;
+        return repo.findOne(id);
     }
 
     public void save(Counter counter) {
-        // TODO implement here
+    		repo.save(counter);
     }
 
     public void delete(int id) {

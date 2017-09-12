@@ -8,9 +8,4 @@ public class InvoiceRepoImpl extends AbstractSearchRepo<Invoice> {
 		super(Invoice.class);
 	}
 
-	@Override
-	protected String getBaseQuery() {
-		return null;
-	}
-
 }

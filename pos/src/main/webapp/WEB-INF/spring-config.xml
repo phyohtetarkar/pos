@@ -17,10 +17,11 @@
 	
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="url" value="postgres://localhost:5432/pos">
+		<property name="url"
+			value="jdbc:postgresql://localhost:5432/pos">
 		</property>
 		<property name="username" value="postgres"></property>
-		<property name="password" value="postgres"></property>
+		<property name="password" value="root"></property>
 		<property name="driverClassName"
 			value="org.postgresql.Driver">
 		</property>
@@ -33,11 +34,17 @@
 			value="org.hibernate.jpa.HibernatePersistenceProvider">
 		</property>
 	</bean>
+	
+	<tx:annotation-driven transaction-manager="tx" />
 	<bean id="tx"
 		class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory"
 			ref="entityManagerFactory">
 		</property>
 	</bean>
-	<jpa:repositories base-package="com.jsoft.pos.repo"></jpa:repositories>
+	<jpa:repositories base-package="com.jsoft.pos.repo"
+		transaction-manager-ref="tx"
+		entity-manager-factory-ref="entityManagerFactory">
+	</jpa:repositories>
+
 </beans>
