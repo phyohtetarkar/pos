@@ -9,27 +9,24 @@ import java.util.Map;
 import com.jsoft.pos.annotation.SearchParam;
 import com.jsoft.pos.service.search.SearchCriteria;
 
-public class JPACriteria<T> {
+public class JPACriteria {
 
 	private StringBuffer sb;
 	private Map<String, Object> params;
 	private List<String> likeMatches;
-	private T sch;
+	private int offset;
+	private int limit;
 
 	private JPACriteria() {
 		sb = new StringBuffer();
 		params = new HashMap<>();
 	}
 
-	public static <T> JPACriteria<T> builder() {
-		return new JPACriteria<T>();
+	public static JPACriteria builder() {
+		return new JPACriteria();
 	}
 
-	public SearchCriteria build() {
-		return build(0, 0);
-	}
-
-	public SearchCriteria build(int offset, int limit) {
+	public <T> SearchCriteria build(T sch) {
 		try {
 			Field[] fields = sch.getClass().getDeclaredFields();
 			for (Field f : fields) {
@@ -46,31 +43,32 @@ public class JPACriteria<T> {
 		}
 		return new SearchCriteria(sb.toString(), new HashMap<>(params), offset, limit);
 	}
-
-	public JPACriteria<T> of(T sch) {
-		this.sch = sch;
+	
+	public JPACriteria pagination(int offset, int limit) {
+		this.offset = offset;
+		this.limit = limit;
 		return this;
 	}
 
-	public JPACriteria<T> likeMatches(String... likeMatches) {
+	public JPACriteria likeMatches(String... likeMatches) {
 		this.likeMatches = Arrays.asList(likeMatches);
 		return this;
 	}
 
-	private void checkAndSet(Field f, SearchParam sp, T t) throws IllegalArgumentException, IllegalAccessException {
+	private <T> void checkAndSet(Field f, SearchParam sp, T sch) throws IllegalArgumentException, IllegalAccessException {
 		if (f.getType().isPrimitive()) {
 			if (f.getType() == int.class) {
-				setParam(sp.paramName(), f.getName(), f.getInt(t));
+				setParam(sp.paramName(), f.getName(), f.getInt(sch));
 			} else if (f.getType() == long.class) {
-				setParam(sp.paramName(), f.getName(), f.getLong(t));
+				setParam(sp.paramName(), f.getName(), f.getLong(sch));
 			}
 		} else {
 			if (f.getType() == Integer.class) {
-				setParam(sp.paramName(), f.getName(), f.getInt(t));
+				setParam(sp.paramName(), f.getName(), f.getInt(sch));
 			} else if (f.getType() == Long.class) {
-				setParam(sp.paramName(), f.getName(), f.getLong(t));
+				setParam(sp.paramName(), f.getName(), f.getLong(sch));
 			} else if (f.getType() == String.class) {
-				setParam(sp.paramName(), f.getName(), (String) f.get(t));
+				setParam(sp.paramName(), f.getName(), (String) f.get(sch));
 			}
 		}
 	}

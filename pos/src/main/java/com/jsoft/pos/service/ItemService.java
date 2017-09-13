@@ -20,7 +20,10 @@ public class ItemService {
 	private ItemRepo repo;
 
 	public List<Item> search(ItemSearch sch, int offset, int limit) {
-		SearchCriteria criteria = JPACriteria.builder().of(sch).likeMatches("name").build(offset, limit);
+		SearchCriteria criteria = JPACriteria.builder()
+				.pagination(offset, limit)
+				.likeMatches("name")
+				.build(sch);
 		return repo.search(criteria);
 	}
 
