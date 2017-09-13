@@ -8,9 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jsoft.pos.entity.Item;
 import com.jsoft.pos.repo.ItemRepo;
-import com.jsoft.pos.service.search.ItemSearch;
 import com.jsoft.pos.service.search.SearchCriteria;
-import com.jsoft.pos.util.JPACriteria;
 
 @Service
 @Transactional
@@ -19,12 +17,8 @@ public class ItemService {
 	@Autowired
 	private ItemRepo repo;
 
-	public List<Item> search(ItemSearch sch, int offset, int limit) {
-		SearchCriteria criteria = JPACriteria.builder()
-				.pagination(offset, limit)
-				.likeMatches("name")
-				.build(sch);
-		return repo.search(criteria);
+	public List<Item> search(SearchCriteria crt) {
+		return repo.search(crt.getWhere(), crt.getParams(), crt.getOffset(), crt.getLimit());
 	}
 
 	public Item findById(int id) {

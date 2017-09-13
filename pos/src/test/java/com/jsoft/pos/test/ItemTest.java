@@ -16,7 +16,7 @@ import com.jsoft.pos.entity.Category;
 import com.jsoft.pos.entity.Item;
 import com.jsoft.pos.service.CategoryService;
 import com.jsoft.pos.service.ItemService;
-import com.jsoft.pos.service.search.ItemSearch;
+import com.jsoft.pos.service.search.ItemSearchCriteria;
 
 public class ItemTest {
 	
@@ -57,12 +57,12 @@ public class ItemTest {
 		assertEquals(1, i.getId());
 		
 		
-		ItemSearch sch = new ItemSearch();
-		sch.setName("iph");
+		ItemSearchCriteria crt = new ItemSearchCriteria(0, 10);
+		crt.setName("iph");
 		//sch.setCode("001");
-		sch.setCategoryId(1);
+		crt.setCategoryId(1);
 
-		List<Item> items = iService.search(sch, 0, 10);
+		List<Item> items = iService.search(crt);
 		
 		Item it = iService.findByCode("001");
 		
