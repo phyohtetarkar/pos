@@ -3,7 +3,7 @@ package com.jsoft.pos.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,22 +15,26 @@ import com.jsoft.pos.repo.CategoryRepo;
 public class CategoryService {
 
 	@Autowired
-    private CategoryRepo repo;
+	private CategoryRepo repo;
+	
+	public List<Category> findAll() {
+		return repo.findByIsDeletedFalse(new Sort("id"));
+	}
 
-    public Category findById(int id) {
-        return repo.findOne(id);
-    }
+	public Category findById(int id) {
+		return repo.findOne(id);
+	}
 
-    public List<Category> findByNameLike(String name, int page, int limit) {
-        return repo.findByNameLike(name.concat("&"), new PageRequest(page, limit));
-    }
+	public List<Category> findByName(String name) {
+		return repo.findByNameLikeIgnoreCaseAndIsDeletedFalse(name.concat("%"), new Sort("id"));
+	}
 
-    public void save(Category category) {
-    		repo.save(category);
-    }
+	public void save(Category category) {
+		repo.save(category);
+	}
 
-    public void delete(int id) {
-        // TODO implement here
-    }
+	public void delete(int id) {
+		// TODO implement here
+	}
 
 }

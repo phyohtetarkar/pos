@@ -1,30 +1,38 @@
 package com.jsoft.pos.service.search;
 
-import java.util.Map;
+import com.jsoft.pos.annotation.SearchParam;
 
-public class ItemSearch implements Searchable {
+public class ItemSearch {
 
-    public ItemSearch() {
-    }
+	@SearchParam(paramName = "code")
+	private String code;
+	@SearchParam(paramName = "name")
+	private String name;
+	@SearchParam(paramName = "category.id")
+	private int categoryId;
 
-    public String getWhere() {
-        // TODO implement here
-        return "";
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public Map<String, Object> getParam() {
-        // TODO implement here
-        return null;
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public int getFirstResult() {
-        // TODO implement here
-        return 0;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public int getMaxResult() {
-        // TODO implement here
-        return 0;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
 
 }

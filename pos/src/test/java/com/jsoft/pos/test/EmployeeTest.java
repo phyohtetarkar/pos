@@ -47,7 +47,7 @@ public class EmployeeTest {
 	
 	@Test
 	public void test2() {
-		List<Employee> emps = service.findByNameLike("Ht", 1, 10);
+		List<Employee> emps = service.findByName("Ht", 1, 10);
 		
 		assertNotEquals(0, emps.size());
 		assertEquals("Htet", emps.get(0).getName());

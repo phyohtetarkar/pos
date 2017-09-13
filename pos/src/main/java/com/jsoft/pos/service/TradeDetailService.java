@@ -12,14 +12,14 @@ import com.jsoft.pos.repo.TradeDetailRepo;
 public class TradeDetailService {
 
 	@Autowired
-    private TradeDetailRepo repo;
+	private TradeDetailRepo repo;
 
-    public TradeDetail findById(long id) {
-        return repo.findOne(id);
-    }
+	public TradeDetail findById(long id) {
+		return repo.findOne(id);
+	}
 
-    public void save(TradeDetail tradeDetail) {
-    		repo.save(tradeDetail);
-    }
+	public void save(TradeDetail tradeDetail) {
+		repo.save(tradeDetail);
+	}
 
 }
