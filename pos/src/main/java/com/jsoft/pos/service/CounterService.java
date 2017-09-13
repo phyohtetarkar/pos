@@ -18,7 +18,7 @@ public class CounterService {
     private CounterRepo repo;
 
     public List<Counter> findAll() {
-        return repo.findByIsDeletedFalse(new Sort("id"));
+        return repo.findByDeletedFalse(new Sort("id"));
     }
 
     public Counter findById(int id) {

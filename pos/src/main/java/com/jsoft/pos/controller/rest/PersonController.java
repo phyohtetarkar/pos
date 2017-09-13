@@ -14,26 +14,30 @@ import com.jsoft.pos.service.PersonService;
 
 public abstract class PersonController<T extends Person> {
 
-    protected abstract PersonService<T> getService();
+	protected abstract PersonService<T> getService();
 
-    @GetMapping
-    public ResponseEntity<List<T>> findAll(@RequestParam("page") int page, @RequestParam("limit") int limit) {
-    	return ResponseEntity.ok(getService().findAll(page, limit));
-    }
-    
-    @GetMapping("/search")
-    public ResponseEntity<List<T>> findByName(@RequestParam("name") String name, @RequestParam("page") int page, @RequestParam("limit") int limit) {
-    	return ResponseEntity.ok(getService().findByName(name, page, limit));
-    }
-    
-    @PostMapping
-	public ResponseEntity<String> save(@RequestBody T person) {		
-		getService().save(person);
+	@GetMapping
+	public ResponseEntity<List<T>> findAll(@RequestParam("page") int page, 
+			@RequestParam("limit") int limit) {
+		return ResponseEntity.ok(getService().findAll(page, limit));
+	}
+
+	@GetMapping("/search")
+	public ResponseEntity<List<T>> findByName(@RequestParam("name") String name, 
+			@RequestParam("page") int page,
+			@RequestParam("limit") int limit) {
 		
+		return ResponseEntity.ok(getService().findByName(name, page, limit));
+	}
+
+	@PostMapping
+	public ResponseEntity<String> save(@RequestBody T person) {
+		getService().save(person);
+
 		if (person.getId() > 0) {
 			return ResponseEntity.ok("Saved!");
 		}
-		
+
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 }

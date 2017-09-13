@@ -51,8 +51,8 @@ public class JPACriteria<T> {
 		this.sch = sch;
 		return this;
 	}
-	
-	public JPACriteria<T> likeMatches(String...likeMatches) {
+
+	public JPACriteria<T> likeMatches(String... likeMatches) {
 		this.likeMatches = Arrays.asList(likeMatches);
 		return this;
 	}
@@ -103,22 +103,11 @@ public class JPACriteria<T> {
 	}
 
 	private void populate(String key, String name, Object value) {
-
-		if (sb.toString().isEmpty()) {
-			sb.append("where ");
-			if (null != likeMatches && likeMatches.contains(key)) {
-				sb.append(String.format("upper(t.%s) like upper(:%s) ", key, name));
-			} else {
-				sb.append(String.format("t.%s = :%s ", key, name));
-			}
-			
+		sb.append("and ");
+		if (null != likeMatches && likeMatches.contains(key)) {
+			sb.append(String.format("upper(t.%s) like upper(:%s) ", key, name));
 		} else {
-			sb.append("and ");
-			if (null != likeMatches && likeMatches.contains(key)) {
-				sb.append(String.format("upper(t.%s) like upper(:%s) ", key, name));
-			} else {
-				sb.append(String.format("t.%s = :%s ", key, name));
-			}
+			sb.append(String.format("t.%s = :%s ", key, name));
 		}
 
 		params.put(name, value);

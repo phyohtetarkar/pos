@@ -27,7 +27,7 @@ public class PaymentController {
 		return ResponseEntity.ok(service.findAll());
 	}
 	
-	@GetMapping("/search/{id}")
+	@GetMapping("/find/{id}")
 	public ResponseEntity<Payment> findById(@PathVariable("id") int id) {
 		return ResponseEntity.ok(service.findById(id));
 	}
@@ -41,6 +41,6 @@ public class PaymentController {
 			return ResponseEntity.ok("Saved!");
 		}
 		
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
 	}
 }

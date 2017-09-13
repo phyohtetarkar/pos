@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.jsoft.pos.entity.Counter;
 
 public interface CounterRepo extends JpaRepository<Counter, Integer> {
-	List<Counter> findByIsDeletedFalse(Sort sort);
+	List<Counter> findByDeletedFalse(Sort sort);
 }

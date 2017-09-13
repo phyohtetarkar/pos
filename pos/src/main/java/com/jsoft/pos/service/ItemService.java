@@ -29,7 +29,7 @@ public class ItemService {
 	}
 
 	public Item findByCode(String code) {
-		return repo.findByCode(code);
+		return repo.findByCodeAndDeletedFalse(code);
 	}
 
 	public void save(Item item) {

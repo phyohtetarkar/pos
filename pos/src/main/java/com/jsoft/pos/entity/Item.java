@@ -27,7 +27,7 @@ public class Item implements Serializable {
 	@ManyToOne
 	private Category category;
 
-	private boolean isDeleted;
+	private boolean deleted;
 	private Security security;
 
 	public int getId() {
@@ -103,11 +103,11 @@ public class Item implements Serializable {
 	}
 
 	public boolean isDeleted() {
-		return isDeleted;
+		return deleted;
 	}
 
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public Security getSecurity() {

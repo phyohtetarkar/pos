@@ -24,7 +24,7 @@ public class Invoice implements Serializable {
 	@OneToOne
 	private Trade trade;
 
-	private boolean isDeleted;
+	private boolean deleted;
 
 	public long getId() {
 		return id;
@@ -91,11 +91,11 @@ public class Invoice implements Serializable {
 	}
 
 	public boolean isDeleted() {
-		return isDeleted;
+		return deleted;
 	}
 
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 }

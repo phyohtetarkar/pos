@@ -18,7 +18,7 @@ public class CategoryService {
 	private CategoryRepo repo;
 	
 	public List<Category> findAll() {
-		return repo.findByIsDeletedFalse(new Sort("id"));
+		return repo.findByDeletedFalse(new Sort("id"));
 	}
 
 	public Category findById(int id) {
@@ -26,7 +26,7 @@ public class CategoryService {
 	}
 
 	public List<Category> findByName(String name) {
-		return repo.findByNameLikeIgnoreCaseAndIsDeletedFalse(name.concat("%"), new Sort("id"));
+		return repo.findByNameLikeIgnoreCaseAndDeletedFalse(name.concat("%"), new Sort("id"));
 	}
 
 	public void save(Category category) {

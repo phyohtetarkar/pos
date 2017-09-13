@@ -28,14 +28,13 @@ public class CategoryController {
 		return ResponseEntity.ok(service.findAll());
 	}
 	
-	@GetMapping("/search/{id}")
+	@GetMapping("/find/{id}")
 	public ResponseEntity<Category> findById(@PathVariable("id") int id) {
 		return ResponseEntity.ok(service.findById(id));
 	}
 
-	@GetMapping("/search")
+	@GetMapping("/find")
 	public ResponseEntity<List<Category>> findByName(@RequestParam("name") String name) {
-		System.out.println(name);
 		return ResponseEntity.ok(service.findByName(name));
 	}
 	

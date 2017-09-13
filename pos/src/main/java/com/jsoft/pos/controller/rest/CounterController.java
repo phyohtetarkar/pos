@@ -27,7 +27,7 @@ public class CounterController {
 		return ResponseEntity.ok(service.findAll());
 	}
 	
-	@GetMapping("/search/{id}")
+	@GetMapping("/find/{id}")
 	public ResponseEntity<Counter> findById(@PathVariable("id") int id) {
 		return ResponseEntity.ok(service.findById(id));
 	}

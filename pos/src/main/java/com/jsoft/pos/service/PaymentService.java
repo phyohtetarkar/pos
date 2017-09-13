@@ -18,7 +18,7 @@ public class PaymentService {
     private PaymentRepo repo;
 	
 	public List<Payment> findAll() {
-        return repo.findByIsDeletedFalse(new Sort("id"));
+        return repo.findByDeletedFalse(new Sort("id"));
     }
 
     public Payment findById(int id) {

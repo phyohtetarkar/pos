@@ -16,7 +16,7 @@ public class Category implements Serializable {
 	private int id;
 	private String name;
 
-	private boolean isDeleted;
+	private boolean deleted;
 	private Security security;
 
 	public int getId() {
@@ -36,11 +36,11 @@ public class Category implements Serializable {
 	}
 
 	public boolean isDeleted() {
-		return isDeleted;
+		return deleted;
 	}
 
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public Security getSecurity() {

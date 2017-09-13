@@ -19,7 +19,7 @@ public class Payment implements Serializable {
 	@Lob
 	private String remark;
 
-	private boolean isDeleted;
+	private boolean deleted;
 	private Security security;
 
 	public int getId() {
@@ -47,11 +47,11 @@ public class Payment implements Serializable {
 	}
 
 	public boolean isDeleted() {
-		return isDeleted;
+		return deleted;
 	}
 
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public Security getSecurity() {

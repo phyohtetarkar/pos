@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.jsoft.pos.entity.Payment;
 
 public interface PaymentRepo extends JpaRepository<Payment, Integer> {
-	List<Payment> findByIsDeletedFalse(Sort sort);
+	List<Payment> findByDeletedFalse(Sort sort);
 }

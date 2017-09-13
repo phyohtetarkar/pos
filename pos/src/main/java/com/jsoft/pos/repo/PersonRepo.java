@@ -10,6 +10,6 @@ import com.jsoft.pos.entity.Person;
 
 @NoRepositoryBean
 public interface PersonRepo<T extends Person> extends JpaRepository<T, Integer> {
-	List<T> findByIsDeletedFalse(Pageable pagable);
-	List<T> findByNameLikeIgnoreCaseAndIsDeletedFalse(String name, Pageable pagable);
+	List<T> findByDeletedFalse(Pageable pagable);
+	List<T> findByNameLikeIgnoreCaseAndDeletedFalse(String name, Pageable pagable);
 }

@@ -22,14 +22,17 @@ public abstract class AbstractSearchRepo<T> implements SearchableRepository<T> {
 	@Override
 	public List<T> search(SearchCriteria criteria) {
 		StringBuffer sb = new StringBuffer(String.format("select t from %s t ", type.getSimpleName()));
+		sb.append("where t.deleted = :deleted ");
 
 		if (null != criteria.getWhere() && !criteria.getWhere().isEmpty()) {
 			sb.append(criteria.getWhere());
-		}
+		} 	
 		
 		System.out.println(sb.toString());
 
 		TypedQuery<T> query = em.createQuery(sb.toString(), type);
+		query.setParameter("deleted", false);
+		
 		if (criteria.getLimit() > 0) {
 			query.setFirstResult(criteria.getOffset());
 			query.setMaxResults(criteria.getLimit());
