@@ -4,6 +4,15 @@ import java.util.Map;
 
 public class InvoiceSearchCriteria implements SearchCriteria {
 
+	private int offset;
+	private int limit;
+
+	public InvoiceSearchCriteria(int offset, int limit) {
+		super();
+		this.offset = offset;
+		this.limit = limit;
+	}
+
 	@Override
 	public String getWhere() {
 		return null;
@@ -16,13 +25,12 @@ public class InvoiceSearchCriteria implements SearchCriteria {
 
 	@Override
 	public int getOffset() {
-		return 0;
+		return offset;
 	}
 
 	@Override
 	public int getLimit() {
-		return 0;
+		return limit;
 	}
-
 
 }

@@ -22,6 +22,11 @@ public class ItemSearchCriteria implements SearchCriteria {
 	public String getWhere() {
 		StringBuffer sb = new StringBuffer();
 		
+		if (categoryId > 0) {
+			sb.append("and ");
+			sb.append("t.category.id = :categoryId ");
+		}
+		
 		if (null != code && !code.isEmpty()) {
 			sb.append("and ");
 			sb.append("t.code = :code ");
@@ -31,11 +36,6 @@ public class ItemSearchCriteria implements SearchCriteria {
 			sb.append("and ");
 			sb.append("t.name = :name ");
 		}
-		
-		if (categoryId > 0) {
-			sb.append("and ");
-			sb.append("t.category.id = :categoryId ");
-		}
 		 
 		return sb.toString();
 	}
@@ -44,6 +44,10 @@ public class ItemSearchCriteria implements SearchCriteria {
 	public Map<String, Object> getParams() {
 		Map<String, Object> params = new HashMap<>();
 		
+		if (categoryId > 0) {
+			params.put("categoryId", categoryId);
+		}
+		
 		if (null != code && !code.isEmpty()) {
 			params.put("code", code);
 		}
@@ -51,11 +55,7 @@ public class ItemSearchCriteria implements SearchCriteria {
 		if (null != name && !name.isEmpty()) {
 			params.put("name", name);
 		}
-		
-		if (categoryId > 0) {
-			params.put("categoryId", categoryId);
-		}
-		
+	
 		return params;
 	}
 

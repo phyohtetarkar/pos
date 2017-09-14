@@ -1,18 +1,16 @@
 package com.jsoft.pos.entity;
 
-import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import static javax.persistence.InheritanceType.JOINED;
-import javax.persistence.Lob;
-import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.MappedSuperclass;
+
 @SuppressWarnings("serial")
-@Entity
-@Inheritance(strategy = JOINED)
+@MappedSuperclass
 public abstract class Person implements Serializable {
 
 	@Id

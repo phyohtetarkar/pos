@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jsoft.pos.entity.Trade;
 import com.jsoft.pos.service.TradeService;
+import com.jsoft.pos.service.search.TradeSearchCriteria;
 
 public abstract class TradeController<T extends Trade> {
 
@@ -22,13 +23,16 @@ public abstract class TradeController<T extends Trade> {
 	public ResponseEntity<List<T>> search( 
 			@RequestParam("dateFrom") String dateFrom, 
 			@RequestParam("dateTo") String dateTo,
+			@RequestParam("employeeId") int employeeId,
 			@RequestParam("offset") int offset,
 			@RequestParam("limit") int limit) {
     	
-    		LocalDate df = LocalDate.parse(dateFrom);
-    		LocalDate dt = LocalDate.parse(dateTo);
+    		TradeSearchCriteria crt = new TradeSearchCriteria(offset, limit);
+    		crt.setDateFrom(LocalDate.parse(dateFrom));
+    		crt.setDateTo(LocalDate.parse(dateTo));
+    		crt.setEmployeeId(employeeId);
 		
-		return ResponseEntity.ok(getService().search(df, dt, offset, limit));
+		return ResponseEntity.ok(getService().search(crt));
 	}
     
     @GetMapping("/find/{id}")

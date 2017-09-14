@@ -1,17 +1,18 @@
 package com.jsoft.pos.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.InheritanceType.JOINED;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Inheritance;
-import static javax.persistence.InheritanceType.JOINED;
 
 @SuppressWarnings("serial")
 @Entity

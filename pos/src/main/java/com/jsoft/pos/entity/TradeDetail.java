@@ -23,6 +23,8 @@ public class TradeDetail implements Serializable {
 	@ManyToOne
 	private Item item;
 
+	private boolean deleted;
+
 	public long getId() {
 		return id;
 	}
@@ -69,6 +71,14 @@ public class TradeDetail implements Serializable {
 
 	public void setItem(Item item) {
 		this.item = item;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 }
