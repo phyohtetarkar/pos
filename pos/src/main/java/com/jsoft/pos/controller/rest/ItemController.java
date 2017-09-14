@@ -31,7 +31,6 @@ public class ItemController {
 			@RequestParam("offset") int offset,
 			@RequestParam("limit") int limit) {
 		
-		
 		ItemSearchCriteria crt = new ItemSearchCriteria(offset, limit);
 		crt.setCode(code);
 		crt.setName(name);
