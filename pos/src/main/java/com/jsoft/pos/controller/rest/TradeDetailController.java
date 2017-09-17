@@ -20,8 +20,8 @@ public class TradeDetailController {
 	@Autowired
     private TradeDetailService service;
 	
-	@GetMapping()
-	public ResponseEntity<List<TradeDetail>> findById(@RequestParam("page") int page, @RequestParam("limit") int limit) {
+	@GetMapping
+	public ResponseEntity<List<TradeDetail>> findAll(@RequestParam("page") int page, @RequestParam("limit") int limit) {
 		return ResponseEntity.ok(service.findAll(page, limit));
 	}
 

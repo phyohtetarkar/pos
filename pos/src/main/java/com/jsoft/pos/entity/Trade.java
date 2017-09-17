@@ -1,5 +1,7 @@
 package com.jsoft.pos.entity;
 
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.InheritanceType.JOINED;
 
@@ -13,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import static javax.persistence.CascadeType.REMOVE;
 
 @SuppressWarnings("serial")
 @Entity
@@ -24,12 +28,14 @@ public abstract class Trade implements Serializable {
 	private long id;
 	private LocalDate eventDate;
 	private String remark;
-	@OneToMany(mappedBy = "trade")
+	@OneToMany(mappedBy = "trade", cascade = { PERSIST, MERGE })
 	private Set<TradeDetail> tradeDetail;
 	@ManyToOne
 	private Employee employee;
 	@ManyToOne
 	private Payment payment;
+	@OneToOne(mappedBy = "trade", cascade = { PERSIST, MERGE, REMOVE }, orphanRemoval = true)
+	private Invoice invoice;
 
 	private boolean deleted;
 	private Security security;
@@ -80,6 +86,18 @@ public abstract class Trade implements Serializable {
 
 	public void setPayment(Payment payment) {
 		this.payment = payment;
+	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
+	}
+
+	public String getType() {
+		return this.getClass().getSimpleName();
 	}
 
 	public boolean isDeleted() {
