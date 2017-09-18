@@ -20,6 +20,10 @@ public abstract class TradeService<T extends Trade> {
 	public T findById(long id) {
 		return getRepo().findOne(id);
 	}
+	
+	public long count(TradeSearchCriteria crt) {
+		return getRepo().count(crt.getWhere(), crt.getParams());
+	}
 
 	public void save(T trade) {
 		getRepo().save(trade);

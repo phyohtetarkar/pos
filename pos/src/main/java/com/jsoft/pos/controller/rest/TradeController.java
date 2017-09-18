@@ -44,6 +44,25 @@ public abstract class TradeController<T extends Trade> {
 	public ResponseEntity<T> findById(@PathVariable("id") int id) {
 		return ResponseEntity.ok(getService().findById(id));
 	}
+    
+    @GetMapping("/count")
+	public ResponseEntity<Long> search( 
+			@RequestParam("dateFrom") String dateFrom, 
+			@RequestParam("dateTo") String dateTo,
+			@RequestParam("employeeId") int employeeId) {
+    	
+    		TradeSearchCriteria crt = new TradeSearchCriteria(0, 0);
+    		
+    		if ((null != dateFrom && !dateFrom.isEmpty()) && 
+    				(null != dateTo && !dateTo.isEmpty())) {
+    			crt.setDateFrom(LocalDate.parse(dateFrom));
+        		crt.setDateTo(LocalDate.parse(dateTo));
+    		}
+    		
+    		crt.setEmployeeId(employeeId);
+		
+		return ResponseEntity.ok(getService().count(crt));
+	}
 	
 	@PostMapping
 	public ResponseEntity<String> save(@RequestBody T trade) {		
