@@ -1,7 +1,7 @@
 package com.jsoft.pos.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Embeddable;
 
@@ -9,16 +9,16 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Security implements Serializable {
 
-	private LocalDate creation;
+	private LocalDateTime creation;
 	private String createUser;
-	private LocalDate modification;
+	private LocalDateTime modification;
 	private String modifiedUser;
 
-	public LocalDate getCreation() {
+	public LocalDateTime getCreation() {
 		return creation;
 	}
 
-	public void setCreation(LocalDate creation) {
+	public void setCreation(LocalDateTime creation) {
 		this.creation = creation;
 	}
 
@@ -30,11 +30,11 @@ public class Security implements Serializable {
 		this.createUser = createUser;
 	}
 
-	public LocalDate getModification() {
+	public LocalDateTime getModification() {
 		return modification;
 	}
 
-	public void setModification(LocalDate modification) {
+	public void setModification(LocalDateTime modification) {
 		this.modification = modification;
 	}
 

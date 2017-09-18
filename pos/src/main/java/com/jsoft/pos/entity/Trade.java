@@ -16,7 +16,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import static javax.persistence.CascadeType.REMOVE;
 
 @SuppressWarnings("serial")
 @Entity
@@ -34,7 +33,7 @@ public abstract class Trade implements Serializable {
 	private Employee employee;
 	@ManyToOne
 	private Payment payment;
-	@OneToOne(mappedBy = "trade", cascade = { PERSIST, MERGE, REMOVE }, orphanRemoval = true)
+	@OneToOne(mappedBy = "trade", cascade = { PERSIST, MERGE }, orphanRemoval = true)
 	private Invoice invoice;
 
 	private boolean deleted;

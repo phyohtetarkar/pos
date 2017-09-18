@@ -1,10 +1,12 @@
 package com.jsoft.pos.entity;
 
+import static javax.persistence.EnumType.STRING;
+
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import static javax.persistence.EnumType.STRING;
 
 @SuppressWarnings("serial")
 @Entity
@@ -14,6 +16,7 @@ public class Employee extends Person implements Serializable {
 		ADMIN, LEADER, STAFF
 	}
 
+	@Column(unique = true)
 	private String loginId;
 	private String password;
 	@Enumerated(STRING)

@@ -1,8 +1,13 @@
 package com.jsoft.pos.service.search;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 public class InvoiceSearchCriteria implements SearchCriteria {
+
+	private LocalDate dateFrom;
+	private LocalDate dateTo;
 
 	private int offset;
 	private int limit;
@@ -15,12 +20,26 @@ public class InvoiceSearchCriteria implements SearchCriteria {
 
 	@Override
 	public String getWhere() {
-		return null;
+		StringBuffer sb = new StringBuffer();
+
+		if (null != dateFrom && null != dateTo) {
+			sb.append("and ");
+			sb.append("t.trade.eventDate between :df and :dt ");
+		}
+
+		return sb.toString();
 	}
 
 	@Override
 	public Map<String, Object> getParams() {
-		return null;
+		Map<String, Object> params = new HashMap<>();
+
+		if (null != dateFrom && null != dateTo) {
+			params.put("df", dateFrom);
+			params.put("dt", dateTo);
+		}
+
+		return params;
 	}
 
 	@Override
@@ -31,6 +50,14 @@ public class InvoiceSearchCriteria implements SearchCriteria {
 	@Override
 	public int getLimit() {
 		return limit;
+	}
+
+	public void setDateFrom(LocalDate dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public void setDateTo(LocalDate dateTo) {
+		this.dateTo = dateTo;
 	}
 
 }

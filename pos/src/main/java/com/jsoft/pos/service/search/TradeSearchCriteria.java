@@ -23,13 +23,15 @@ public class TradeSearchCriteria implements SearchCriteria {
 	public String getWhere() {
 		StringBuffer sb = new StringBuffer();
 		
-		/*if (employeeId > 0) {
+		if (employeeId > 0) {
 			sb.append("and ");
 			sb.append("t.employee.id = :employeeId ");
 		}
 
-		sb.append("and ");
-		sb.append("t.eventDate between :df and :dt ");*/
+		if (null != dateFrom && null != dateTo) {
+			sb.append("and ");
+			sb.append("t.eventDate between :df and :dt ");
+		}
 
 		return sb.toString();
 	}
@@ -38,12 +40,14 @@ public class TradeSearchCriteria implements SearchCriteria {
 	public Map<String, Object> getParams() {
 		Map<String, Object> params = new HashMap<>();
 		
-		/*if (employeeId > 0) {
+		if (employeeId > 0) {
 			params.put("employeeId", employeeId);
 		}
 
-		params.put("df", dateFrom);
-		params.put("dt", dateTo);*/
+		if (null != dateFrom && null != dateTo) {
+			params.put("df", dateFrom);
+			params.put("dt", dateTo);
+		}
 
 		return params;
 	}

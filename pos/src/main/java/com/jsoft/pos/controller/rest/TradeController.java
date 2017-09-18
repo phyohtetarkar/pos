@@ -28,8 +28,13 @@ public abstract class TradeController<T extends Trade> {
 			@RequestParam("limit") int limit) {
     	
     		TradeSearchCriteria crt = new TradeSearchCriteria(offset, limit);
-    		crt.setDateFrom(LocalDate.parse(dateFrom));
-    		crt.setDateTo(LocalDate.parse(dateTo));
+    		
+    		if ((null != dateFrom && !dateFrom.isEmpty()) && 
+    				(null != dateTo && !dateTo.isEmpty())) {
+    			crt.setDateFrom(LocalDate.parse(dateFrom));
+        		crt.setDateTo(LocalDate.parse(dateTo));
+    		}
+    		
     		crt.setEmployeeId(employeeId);
 		
 		return ResponseEntity.ok(getService().search(crt));
