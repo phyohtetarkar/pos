@@ -21,8 +21,8 @@ public class TradeDetailController {
     private TradeDetailService service;
 	
 	@GetMapping
-	public ResponseEntity<List<TradeDetail>> findAll(@RequestParam("page") int page, @RequestParam("limit") int limit) {
-		return ResponseEntity.ok(service.findAll(page, limit));
+	public ResponseEntity<List<TradeDetail>> findAll(@RequestParam("offset") int offset, @RequestParam("limit") int limit) {
+		return ResponseEntity.ok(service.findAll(offset, limit));
 	}
 
 	@GetMapping("/find/{id}")

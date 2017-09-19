@@ -18,8 +18,8 @@ public class TradeDetailService {
 	@Autowired
 	private TradeDetailRepo repo;
 	
-	public List<TradeDetail> findAll(int page, int limit) {
-		return repo.findByDeletedFalse(new PageRequest(page, limit, new Sort("id")));
+	public List<TradeDetail> findAll(int offset, int limit) {
+		return repo.findByDeletedFalse(new PageRequest(offset, limit, new Sort("id")));
 	}
 
 	public TradeDetail findById(long id) {

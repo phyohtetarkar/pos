@@ -20,6 +20,10 @@ public class ItemService {
 	public List<Item> search(SearchCriteria crt) {
 		return repo.search(crt.getWhere(), crt.getParams(), crt.getOffset(), crt.getLimit());
 	}
+	
+	public long count(SearchCriteria crt) {
+		return repo.count(crt.getWhere(), crt.getParams());
+	}
 
 	public Item findById(int id) {
 		return repo.findOne(id);

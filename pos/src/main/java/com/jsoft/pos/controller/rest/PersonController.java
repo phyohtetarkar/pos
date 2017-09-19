@@ -5,29 +5,33 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jsoft.pos.entity.Person;
 import com.jsoft.pos.service.PersonService;
+import com.jsoft.pos.service.search.PersonSearchCriteria;
 
 public abstract class PersonController<T extends Person> {
 
 	protected abstract PersonService<T> getService();
 
-	@GetMapping
-	public ResponseEntity<List<T>> findAll(@RequestParam("page") int page, 
-			@RequestParam("limit") int limit) {
-		return ResponseEntity.ok(getService().findAll(page, limit));
-	}
-
 	@GetMapping("/search")
-	public ResponseEntity<List<T>> findByName(@RequestParam("name") String name, 
-			@RequestParam("page") int page,
+	public ResponseEntity<List<T>> search(@RequestParam("name") String name, 
+			@RequestParam("offset") int offset,
 			@RequestParam("limit") int limit) {
 		
-		return ResponseEntity.ok(getService().findByName(name, page, limit));
+		PersonSearchCriteria crt = new PersonSearchCriteria(offset, limit);
+		crt.setName(name);
+		
+		return ResponseEntity.ok(getService().search(crt));
+	}
+	
+	@GetMapping("/find/{id}")
+	public ResponseEntity<T> search(@PathVariable("id") int id) {
+		return ResponseEntity.ok(getService().findById(id));
 	}
 
 	@PostMapping

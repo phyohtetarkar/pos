@@ -3,6 +3,7 @@ package com.jsoft.pos.entity;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Lob;
 
 @SuppressWarnings("serial")
 @Embeddable
@@ -10,6 +11,7 @@ public class Contact implements Serializable {
 
 	private String phone;
 	private String email;
+	@Lob
 	private String address;
 
 	public String getPhone() {

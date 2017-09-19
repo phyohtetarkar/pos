@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jsoft.pos.entity.Invoice;
 import com.jsoft.pos.repo.InvoiceRepo;
-import com.jsoft.pos.service.search.InvoiceSearchCriteria;
+import com.jsoft.pos.service.search.SearchCriteria;
 
 @Service
 @Transactional
@@ -17,9 +17,13 @@ public class InvoiceService {
 	@Autowired
     private InvoiceRepo repo;
 	
-	public List<Invoice> search(InvoiceSearchCriteria crt) {
+	public List<Invoice> search(SearchCriteria crt) {
 		return repo.search(crt.getWhere(), crt.getParams(), 
 				crt.getOffset(), crt.getLimit());
+	}
+	
+	public long count(SearchCriteria crt) {
+		return repo.count(crt.getWhere(), crt.getParams());
 	}
 
     public Invoice findById(long id) {

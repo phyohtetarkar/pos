@@ -9,7 +9,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import com.jsoft.pos.entity.Person;
 
 @NoRepositoryBean
-public interface PersonRepo<T extends Person> extends JpaRepository<T, Integer> {
+public interface PersonRepo<T extends Person> extends JpaRepository<T, Integer>, SearchableRepository<T> {
 	List<T> findByDeletedFalse(Pageable pagable);
 	List<T> findByNameLikeIgnoreCaseAndDeletedFalse(String name, Pageable pagable);
 }
