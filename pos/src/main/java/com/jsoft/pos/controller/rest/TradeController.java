@@ -1,6 +1,5 @@
 package com.jsoft.pos.controller.rest;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jsoft.pos.entity.Trade;
 import com.jsoft.pos.service.TradeService;
-import com.jsoft.pos.service.search.TradeSearchCriteria;
 
 public abstract class TradeController<T extends Trade> {
 
@@ -27,41 +25,21 @@ public abstract class TradeController<T extends Trade> {
 			@RequestParam("offset") int offset,
 			@RequestParam("limit") int limit) {
     	
-    		TradeSearchCriteria crt = new TradeSearchCriteria(offset, limit);
-    		
-    		if ((null != dateFrom && !dateFrom.isEmpty()) && 
-    				(null != dateTo && !dateTo.isEmpty())) {
-    			crt.setDateFrom(LocalDate.parse(dateFrom));
-        		crt.setDateTo(LocalDate.parse(dateTo));
-    		}
-    		
-    		crt.setEmployeeId(employeeId);
-		
-		return ResponseEntity.ok(getService().search(crt));
+		return ResponseEntity.ok(getService().search(dateFrom, dateTo, employeeId, offset, limit));
+	}
+    
+    @GetMapping("/count")
+	public ResponseEntity<Long> count( 
+			@RequestParam("dateFrom") String dateFrom, 
+			@RequestParam("dateTo") String dateTo,
+			@RequestParam("employeeId") int employeeId) {
+    	
+		return ResponseEntity.ok(getService().count(dateFrom, dateTo, employeeId));
 	}
     
     @GetMapping("/find/{id}")
 	public ResponseEntity<T> findById(@PathVariable("id") int id) {
 		return ResponseEntity.ok(getService().findById(id));
-	}
-    
-    @GetMapping("/count")
-	public ResponseEntity<Long> search( 
-			@RequestParam("dateFrom") String dateFrom, 
-			@RequestParam("dateTo") String dateTo,
-			@RequestParam("employeeId") int employeeId) {
-    	
-    		TradeSearchCriteria crt = new TradeSearchCriteria(0, 0);
-    		
-    		if ((null != dateFrom && !dateFrom.isEmpty()) && 
-    				(null != dateTo && !dateTo.isEmpty())) {
-    			crt.setDateFrom(LocalDate.parse(dateFrom));
-        		crt.setDateTo(LocalDate.parse(dateTo));
-    		}
-    		
-    		crt.setEmployeeId(employeeId);
-		
-		return ResponseEntity.ok(getService().count(crt));
 	}
 	
 	@PostMapping
@@ -72,6 +50,6 @@ public abstract class TradeController<T extends Trade> {
 			return ResponseEntity.ok("Saved!");
 		}
 		
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 }

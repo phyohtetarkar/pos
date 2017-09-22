@@ -41,6 +41,6 @@ public class PaymentController {
 			return ResponseEntity.ok("Saved!");
 		}
 		
-		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 }

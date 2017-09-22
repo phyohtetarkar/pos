@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jsoft.pos.entity.Item;
 import com.jsoft.pos.repo.ItemRepo;
-import com.jsoft.pos.service.search.SearchCriteria;
+import com.jsoft.pos.service.search.ItemSearchCriteria;
 
 @Service
 @Transactional
@@ -17,12 +17,21 @@ public class ItemService {
 	@Autowired
 	private ItemRepo repo;
 
-	public List<Item> search(SearchCriteria crt) {
-		return repo.search(crt.getWhere(), crt.getParams(), crt.getOffset(), crt.getLimit());
+	public List<Item> search(String code, String name, int categoryId, int offset, int limit) {
+		ItemSearchCriteria crt = new ItemSearchCriteria(offset, limit);
+		crt.setCode(code);
+		crt.setName(name);
+		crt.setCategoryId(categoryId);
+		
+		return repo.search(crt);
 	}
 	
-	public long count(SearchCriteria crt) {
-		return repo.count(crt.getWhere(), crt.getParams());
+	public long count(String code, String name, int categoryId) {
+		ItemSearchCriteria crt = new ItemSearchCriteria(0, 0);
+		crt.setCode(code);
+		crt.setName(name);
+		crt.setCategoryId(categoryId);
+		return repo.count(crt);
 	}
 
 	public Item findById(int id) {

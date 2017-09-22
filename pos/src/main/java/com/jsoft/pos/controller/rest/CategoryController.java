@@ -46,6 +46,6 @@ public class CategoryController {
 			return ResponseEntity.ok("Saved!");
 		}
 		
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 }

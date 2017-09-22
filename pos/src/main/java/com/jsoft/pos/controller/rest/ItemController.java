@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jsoft.pos.entity.Item;
 import com.jsoft.pos.service.ItemService;
-import com.jsoft.pos.service.search.ItemSearchCriteria;
 
 @RestController
 @RequestMapping("/item")
@@ -31,12 +30,15 @@ public class ItemController {
 			@RequestParam("offset") int offset,
 			@RequestParam("limit") int limit) {
 		
-		ItemSearchCriteria crt = new ItemSearchCriteria(offset, limit);
-		crt.setCode(code);
-		crt.setName(name);
-		crt.setCategoryId(categoryId);
+		return ResponseEntity.ok(service.search(code, name, categoryId, offset, limit));
+	}
+	
+	@GetMapping("/count")
+	public ResponseEntity<Long> count(@RequestParam("code") String code, 
+			@RequestParam("name") String name, 
+			@RequestParam("categoryId") int categoryId) {
 		
-		return ResponseEntity.ok(service.search(crt));
+		return ResponseEntity.ok(service.count(code, name, categoryId));
 	}
 
 	@GetMapping("/find")
@@ -57,6 +59,6 @@ public class ItemController {
 			return ResponseEntity.ok("Saved!");
 		}
 		
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 }

@@ -5,12 +5,22 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.jsoft.pos.util.DateTimeDeSerializer;
+import com.jsoft.pos.util.DateTimeSerializer;
+
 @SuppressWarnings("serial")
 @Embeddable
 public class Security implements Serializable {
 
+	@JsonSerialize(using = DateTimeSerializer.class)
+	@JsonDeserialize(using = DateTimeDeSerializer.class)
 	private LocalDateTime creation;
 	private String createUser;
+	
+	@JsonSerialize(using = DateTimeSerializer.class)
+	@JsonDeserialize(using = DateTimeDeSerializer.class)
 	private LocalDateTime modification;
 	private String modifiedUser;
 

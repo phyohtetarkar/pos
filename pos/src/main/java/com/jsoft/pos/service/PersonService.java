@@ -8,19 +8,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jsoft.pos.entity.Person;
 import com.jsoft.pos.repo.PersonRepo;
-import com.jsoft.pos.service.search.SearchCriteria;
+import com.jsoft.pos.service.search.PersonSearchCriteria;
 
 @Transactional
 public abstract class PersonService<T extends Person> {
 
 	protected abstract PersonRepo<T> getRepo();
 	
-	public List<T> search(SearchCriteria crt) {
-		return getRepo().search(crt.getWhere(), crt.getParams(), crt.getOffset(), crt.getLimit());
+	public List<T> search(String name, int offset, int limit) {
+		PersonSearchCriteria crt = new PersonSearchCriteria(offset, limit);
+		crt.setName(name);
+		return getRepo().search(crt);
 	}
 	
-	public List<T> findAll(int offset, int limit) {
-		return getRepo().findByDeletedFalse(new PageRequest(offset, limit, new Sort("id")));
+	public long count(String name) {
+		PersonSearchCriteria crt = new PersonSearchCriteria(0, 0);
+		crt.setName(name);
+		return getRepo().count(crt);
 	}
 
 	public T findById(int id) {

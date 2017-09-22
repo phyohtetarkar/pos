@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jsoft.pos.entity.Person;
 import com.jsoft.pos.service.PersonService;
-import com.jsoft.pos.service.search.PersonSearchCriteria;
 
 public abstract class PersonController<T extends Person> {
 
@@ -23,10 +22,13 @@ public abstract class PersonController<T extends Person> {
 			@RequestParam("offset") int offset,
 			@RequestParam("limit") int limit) {
 		
-		PersonSearchCriteria crt = new PersonSearchCriteria(offset, limit);
-		crt.setName(name);
+		return ResponseEntity.ok(getService().search(name, offset, limit));
+	}
+	
+	@GetMapping("/count")
+	public ResponseEntity<Long> count(@RequestParam("name") String name) {
 		
-		return ResponseEntity.ok(getService().search(crt));
+		return ResponseEntity.ok(getService().count(name));
 	}
 	
 	@GetMapping("/find/{id}")
@@ -42,6 +44,6 @@ public abstract class PersonController<T extends Person> {
 			return ResponseEntity.ok("Saved!");
 		}
 
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 }

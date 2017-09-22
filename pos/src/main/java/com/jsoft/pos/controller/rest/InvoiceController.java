@@ -1,6 +1,5 @@
 package com.jsoft.pos.controller.rest;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jsoft.pos.entity.Invoice;
 import com.jsoft.pos.service.InvoiceService;
-import com.jsoft.pos.service.search.InvoiceSearchCriteria;
 
 @RestController
 @RequestMapping("/invoice")
@@ -23,21 +21,20 @@ public class InvoiceController {
 	private InvoiceService service;
 	
 	@GetMapping("/search")
-	public ResponseEntity<List<Invoice>> findByEventDate(
+	public ResponseEntity<List<Invoice>> search(
 			@RequestParam("dateFrom") String dateFrom, 
 			@RequestParam("dateTo") String dateTo,
 			@RequestParam("offset") int offset,
 			@RequestParam("limit") int limit) {
 			
-		InvoiceSearchCriteria crt = new InvoiceSearchCriteria(offset, limit);
-		
-		if ((null != dateFrom && !dateFrom.isEmpty()) && 
-				(null != dateTo && !dateTo.isEmpty())) {
-			crt.setDateFrom(LocalDate.parse(dateFrom));
-    			crt.setDateTo(LocalDate.parse(dateTo));
-		}
-		
-		return ResponseEntity.ok(service.search(crt));
+		return ResponseEntity.ok(service.search(dateFrom, dateTo, offset, limit));
+	}
+	
+	@GetMapping("/count")
+	public ResponseEntity<Long> count(@RequestParam("dateFrom") String dateFrom, 
+			@RequestParam("dateTo") String dateTo) {
+			
+		return ResponseEntity.ok(service.count(dateFrom, dateTo));
 	}
 	
 	@GetMapping("/find/{id}")
