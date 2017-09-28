@@ -34,7 +34,7 @@ public class ItemSearchCriteria implements SearchCriteria {
 		
 		if (null != name && !name.isEmpty()) {
 			sb.append("and ");
-			sb.append("t.name = :name ");
+			sb.append("upper(t.name) like upper(:name) ");
 		}
 		 
 		return sb.toString();
@@ -53,7 +53,7 @@ public class ItemSearchCriteria implements SearchCriteria {
 		}
 		
 		if (null != name && !name.isEmpty()) {
-			params.put("name", name);
+			params.put("name", name.concat("%"));
 		}
 	
 		return params;

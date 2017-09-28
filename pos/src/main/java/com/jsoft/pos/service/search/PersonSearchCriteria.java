@@ -22,7 +22,7 @@ public class PersonSearchCriteria implements SearchCriteria {
 		
 		if (null != name && !name.isEmpty()) {
 			sb.append("and ");
-			sb.append("t.name like :name ");
+			sb.append("upper(t.name) like upper(:name) ");
 		}
 		
 		return null;
