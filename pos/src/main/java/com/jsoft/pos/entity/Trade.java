@@ -7,7 +7,7 @@ import static javax.persistence.InheritanceType.JOINED;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +17,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.jsoft.pos.util.DateDeSerializer;
+import com.jsoft.pos.util.DateSerializer;
+
 @SuppressWarnings("serial")
 @Entity
 @Inheritance(strategy = JOINED)
@@ -25,10 +30,12 @@ public abstract class Trade implements Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private long id;
+	@JsonSerialize(using = DateSerializer.class)
+	@JsonDeserialize(using = DateDeSerializer.class)
 	private LocalDate eventDate;
 	private String remark;
 	@OneToMany(mappedBy = "trade", cascade = { PERSIST, MERGE })
-	private Set<TradeDetail> tradeDetail;
+	private List<TradeDetail> tradeDetail;
 	@ManyToOne
 	private Employee employee;
 	@ManyToOne
@@ -63,11 +70,11 @@ public abstract class Trade implements Serializable {
 		this.remark = remark;
 	}
 
-	public Set<TradeDetail> getTradeDetail() {
+	public List<TradeDetail> getTradeDetail() {
 		return tradeDetail;
 	}
 
-	public void setTradeDetail(Set<TradeDetail> tradeDetail) {
+	public void setTradeDetail(List<TradeDetail> tradeDetail) {
 		this.tradeDetail = tradeDetail;
 	}
 
