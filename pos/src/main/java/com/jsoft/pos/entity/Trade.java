@@ -21,11 +21,17 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.jsoft.pos.util.DateDeSerializer;
 import com.jsoft.pos.util.DateSerializer;
+import javax.persistence.Enumerated;
+import static javax.persistence.EnumType.STRING;
 
 @SuppressWarnings("serial")
 @Entity
 @Inheritance(strategy = JOINED)
 public abstract class Trade implements Serializable {
+	
+	public enum Payment {
+		CASH, CREDIT
+	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -33,13 +39,14 @@ public abstract class Trade implements Serializable {
 	@JsonSerialize(using = DateSerializer.class)
 	@JsonDeserialize(using = DateDeSerializer.class)
 	private LocalDate eventDate;
+	@Enumerated(STRING)
+	private Payment payment;
 	private String remark;
+	
 	@OneToMany(mappedBy = "trade", cascade = { PERSIST, MERGE })
 	private List<TradeDetail> tradeDetail;
 	@ManyToOne
 	private Employee employee;
-	@ManyToOne
-	private Payment payment;
 	@OneToOne(mappedBy = "trade", cascade = { PERSIST, MERGE }, orphanRemoval = true)
 	private Invoice invoice;
 
