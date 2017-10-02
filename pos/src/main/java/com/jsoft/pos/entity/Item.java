@@ -1,6 +1,7 @@
 package com.jsoft.pos.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 @SuppressWarnings("serial")
 @Entity
@@ -29,6 +32,17 @@ public class Item implements Serializable {
 
 	private boolean deleted;
 	private Security security;
+	
+	@PrePersist
+	private void prePersist() {
+		security.setCreation(LocalDateTime.now());
+		security.setModification(LocalDateTime.now());
+	}
+	
+	@PreUpdate
+	private void preUpdate() {
+		security.setModification(LocalDateTime.now());
+	}
 
 	public int getId() {
 		return id;
