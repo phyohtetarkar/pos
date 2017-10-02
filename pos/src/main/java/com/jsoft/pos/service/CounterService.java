@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +13,7 @@ import com.jsoft.pos.repo.CounterRepo;
 
 @Service
 @Transactional
-public class CounterService {
+public class CounterService extends BasicService<Counter, Integer>{
 
 	@Autowired
     private CounterRepo repo;
@@ -21,16 +22,13 @@ public class CounterService {
         return repo.findByDeletedFalse(new Sort("id"));
     }
 
-    public Counter findById(int id) {
-        return repo.findOne(id);
-    }
-
-    public void save(Counter counter) {
-    		repo.save(counter);
-    }
-
     public void delete(int id) {
         // TODO implement here
     }
+
+	@Override
+	protected JpaRepository<Counter, Integer> getRepo() {
+		return repo;
+	}
 
 }

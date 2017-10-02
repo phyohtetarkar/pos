@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @SuppressWarnings("serial")
 @Entity
 public class TradeDetail implements Serializable {
@@ -18,6 +20,7 @@ public class TradeDetail implements Serializable {
 	private int totalPrice;
 	private int quantity;
 	private int pricePerItem;
+	@JsonIgnore
 	@ManyToOne
 	private Trade trade;
 	@ManyToOne

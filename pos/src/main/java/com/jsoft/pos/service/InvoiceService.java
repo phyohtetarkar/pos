@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +14,7 @@ import com.jsoft.pos.service.search.InvoiceSearchCriteria;
 
 @Service
 @Transactional
-public class InvoiceService {
+public class InvoiceService extends BasicService<Invoice, Long> {
 
 	@Autowired
     private InvoiceRepo repo;
@@ -41,16 +42,13 @@ public class InvoiceService {
 		return repo.count(crt);
 	}
 
-    public Invoice findById(long id) {
-        return repo.findOne(id);
-    }
-
-    public void save(Invoice invoice) {
-    		repo.save(invoice);
-    }
-
     public void delete(long id) {
         // TODO implement here
     }
+
+	@Override
+	protected JpaRepository<Invoice, Long> getRepo() {
+		return repo;
+	}
 
 }

@@ -8,13 +8,13 @@ import com.jsoft.pos.repo.CustomerRepo;
 import com.jsoft.pos.repo.PersonRepo;
 
 @Service
-public class CustomerService extends PersonService<Customer> {
+public class CustomerService extends PersonService<Customer, Integer> {
 
 	@Autowired
     private CustomerRepo repo;
 
 	@Override
-	protected PersonRepo<Customer> getRepo() {
+	protected PersonRepo<Customer, Integer> getRepo() {
 		return repo;
 	}
 

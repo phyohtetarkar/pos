@@ -39,13 +39,18 @@ public class CategoryController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> save(@RequestBody Category category) {		
-		service.save(category);
-		
-		if (category.getId() > 0) {
-			return ResponseEntity.ok("Saved!");
+	public ResponseEntity<String> save(@RequestBody Category category) {	
+		try {
+			service.save(category);
+			
+			if (category.getId() > 0) {
+				return ResponseEntity.ok("Saved!");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Could not save category!");
 	}
 }

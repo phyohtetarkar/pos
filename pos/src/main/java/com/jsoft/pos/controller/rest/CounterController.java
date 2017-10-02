@@ -34,14 +34,19 @@ public class CounterController {
 
 	
 	@PostMapping
-	public ResponseEntity<String> save(@RequestBody Counter counter) {		
-		service.save(counter);
-		
-		if (counter.getId() > 0) {
-			return ResponseEntity.ok("Saved!");
+	public ResponseEntity<String> save(@RequestBody Counter counter) {	
+		try {
+			service.save(counter);
+			
+			if (counter.getId() > 0) {
+				return ResponseEntity.ok("Saved!");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Could not save counter!");
 	}
 
 }

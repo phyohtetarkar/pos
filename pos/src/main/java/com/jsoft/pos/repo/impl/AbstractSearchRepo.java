@@ -28,7 +28,7 @@ public abstract class AbstractSearchRepo<T> implements SearchableRepository<T> {
 		StringBuffer sb = new StringBuffer(String.format("select t from %s t ", type.getSimpleName()));
 		sb.append("where t.deleted = :deleted ");
 
-		if (null != where && !where.isEmpty()) {
+		if (where != null && !where.isEmpty()) {
 			sb.append(where);
 		} 	
 		

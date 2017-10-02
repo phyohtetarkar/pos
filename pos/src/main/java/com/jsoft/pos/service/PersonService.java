@@ -1,9 +1,8 @@
 package com.jsoft.pos.service;
 
+import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jsoft.pos.entity.Person;
@@ -11,9 +10,9 @@ import com.jsoft.pos.repo.PersonRepo;
 import com.jsoft.pos.service.search.PersonSearchCriteria;
 
 @Transactional
-public abstract class PersonService<T extends Person> {
+public abstract class PersonService<T extends Person, ID extends Serializable> extends BasicService<T, ID> {
 
-	protected abstract PersonRepo<T> getRepo();
+	protected abstract PersonRepo<T, ID> getRepo();
 	
 	public List<T> search(String name, int offset, int limit) {
 		PersonSearchCriteria crt = new PersonSearchCriteria(offset, limit);
@@ -27,20 +26,8 @@ public abstract class PersonService<T extends Person> {
 		return getRepo().count(crt);
 	}
 
-	public T findById(int id) {
-		return getRepo().findOne(id);
-	}
-
-	public List<T> findByName(String name, int offset, int limit) {		
-		return getRepo().findByNameLikeIgnoreCaseAndDeletedFalse(name.concat("%"), new PageRequest(offset, limit, new Sort("id")));
-	}
-
-	public void save(T person) {
-		getRepo().save(person);
-	}
-
 	public void delete(int id) {
-	
+		
 	}
 
 }

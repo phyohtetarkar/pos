@@ -20,19 +20,19 @@ public class PersonSearchCriteria implements SearchCriteria {
 	public String getWhere() {
 		StringBuffer sb = new StringBuffer();
 		
-		if (null != name && !name.isEmpty()) {
+		if (name != null && !name.isEmpty()) {
 			sb.append("and ");
 			sb.append("upper(t.name) like upper(:name) ");
 		}
 		
-		return null;
+		return sb.toString();
 	}
 
 	@Override
 	public Map<String, Object> getParams() {
 		Map<String, Object> params = new HashMap<>();
 		
-		if (null != name && !name.isEmpty()) {
+		if (name != null && !name.isEmpty()) {
 			params.put("name", name.concat("%"));
 		}
 		

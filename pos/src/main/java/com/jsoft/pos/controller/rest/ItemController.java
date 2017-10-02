@@ -2,6 +2,8 @@ package com.jsoft.pos.controller.rest;
 
 import java.util.List;
 
+import javax.servlet.http.Part;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,13 +54,34 @@ public class ItemController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> save(@RequestBody Item item) {		
-		service.save(item);
-		
-		if (item.getId() > 0) {
-			return ResponseEntity.ok("Saved!");
+	public ResponseEntity<String> save(@RequestBody Item item) {	
+		try {
+			Item temp = service.findByCode(item.getCode());
+			
+			if (temp != null && temp.getId() != item.getId()) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Duplicate Item Code!");
+			}
+			
+			service.save(item);
+			
+			if (item.getId() > 0) {
+				return ResponseEntity.ok("Saved!");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Could not save item!");
+	}
+	
+	@PostMapping("/upload")
+	public ResponseEntity<String> upload(@RequestParam("image") Part part) {
+		
+		if (null != part) {
+			return ResponseEntity.ok(String.valueOf(part.getSize()));
+		}
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Image upload error!");
 	}
 }

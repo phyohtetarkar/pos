@@ -22,7 +22,7 @@ public class InvoiceSearchCriteria implements SearchCriteria {
 	public String getWhere() {
 		StringBuffer sb = new StringBuffer();
 
-		if (null != dateFrom && null != dateTo) {
+		if (dateFrom != null && dateTo != null) {
 			sb.append("and ");
 			sb.append("t.trade.eventDate between :df and :dt ");
 		}
@@ -34,7 +34,7 @@ public class InvoiceSearchCriteria implements SearchCriteria {
 	public Map<String, Object> getParams() {
 		Map<String, Object> params = new HashMap<>();
 
-		if (null != dateFrom && null != dateTo) {
+		if (dateFrom != null && dateTo != null) {
 			params.put("df", dateFrom);
 			params.put("dt", dateTo);
 		}

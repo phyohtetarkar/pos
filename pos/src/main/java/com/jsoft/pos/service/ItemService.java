@@ -3,6 +3,7 @@ package com.jsoft.pos.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +13,7 @@ import com.jsoft.pos.service.search.ItemSearchCriteria;
 
 @Service
 @Transactional
-public class ItemService {
+public class ItemService extends BasicService<Item, Integer> {
 
 	@Autowired
 	private ItemRepo repo;
@@ -34,20 +35,17 @@ public class ItemService {
 		return repo.count(crt);
 	}
 
-	public Item findById(int id) {
-		return repo.findOne(id);
-	}
-
 	public Item findByCode(String code) {
 		return repo.findByCodeAndDeletedFalse(code);
 	}
 
-	public void save(Item item) {
-		repo.save(item);
-	}
-
 	public void delete(int id) {
 		// TODO implement here
+	}
+
+	@Override
+	protected JpaRepository<Item, Integer> getRepo() {
+		return repo;
 	}
 
 }

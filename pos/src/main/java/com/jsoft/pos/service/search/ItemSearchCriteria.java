@@ -27,12 +27,12 @@ public class ItemSearchCriteria implements SearchCriteria {
 			sb.append("t.category.id = :categoryId ");
 		}
 		
-		if (null != code && !code.isEmpty()) {
+		if (code != null && !code.isEmpty()) {
 			sb.append("and ");
 			sb.append("t.code = :code ");
 		}
 		
-		if (null != name && !name.isEmpty()) {
+		if (name != null && !name.isEmpty()) {
 			sb.append("and ");
 			sb.append("upper(t.name) like upper(:name) ");
 		}
@@ -48,11 +48,11 @@ public class ItemSearchCriteria implements SearchCriteria {
 			params.put("categoryId", categoryId);
 		}
 		
-		if (null != code && !code.isEmpty()) {
+		if (code != null && !code.isEmpty()) {
 			params.put("code", code);
 		}
 		
-		if (null != name && !name.isEmpty()) {
+		if (name != null && !name.isEmpty()) {
 			params.put("name", name.concat("%"));
 		}
 	

@@ -26,7 +26,7 @@ public class TradeDetailController {
 	}
 
 	@GetMapping("/find/{id}")
-	public ResponseEntity<TradeDetail> findById(@PathVariable("id") int id) {
+	public ResponseEntity<TradeDetail> findById(@PathVariable("id") long id) {
 		return ResponseEntity.ok(service.findById(id));
 	}
 }

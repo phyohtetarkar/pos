@@ -28,7 +28,7 @@ public class TradeSearchCriteria implements SearchCriteria {
 			sb.append("t.employee.id = :employeeId ");
 		}
 
-		if (null != dateFrom && null != dateTo) {
+		if (dateFrom != null && dateTo != null) {
 			sb.append("and ");
 			sb.append("t.eventDate between :df and :dt ");
 		}
@@ -44,7 +44,7 @@ public class TradeSearchCriteria implements SearchCriteria {
 			params.put("employeeId", employeeId);
 		}
 
-		if (null != dateFrom && null != dateTo) {
+		if (dateFrom != null && dateTo != null) {
 			params.put("df", dateFrom);
 			params.put("dt", dateTo);
 		}
