@@ -4,19 +4,18 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TradeSearchCriteria implements SearchCriteria {
+public class TradeSearch extends Search {
 
 	private LocalDate dateFrom;
 	private LocalDate dateTo;
 	private int employeeId;
+	
+	public TradeSearch() {
+		super(0, 0);
+	}
 
-	private int offset;
-	private int limit;
-
-	public TradeSearchCriteria(int offset, int limit) {
-		super();
-		this.offset = offset;
-		this.limit = limit;
+	public TradeSearch(int offset, int limit) {
+		super(offset, limit);
 	}
 
 	@Override
@@ -52,16 +51,6 @@ public class TradeSearchCriteria implements SearchCriteria {
 		return params;
 	}
 
-	@Override
-	public int getOffset() {
-		return offset;
-	}
-
-	@Override
-	public int getLimit() {
-		return limit;
-	}
-
 	public LocalDate getDateFrom() {
 		return dateFrom;
 	}
@@ -85,13 +74,5 @@ public class TradeSearchCriteria implements SearchCriteria {
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
-
-	public void setOffset(int offset) {
-		this.offset = offset;
-	}
-
-	public void setLimit(int limit) {
-		this.limit = limit;
-	}
-
+	
 }

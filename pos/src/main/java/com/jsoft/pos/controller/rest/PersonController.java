@@ -1,6 +1,5 @@
 package com.jsoft.pos.controller.rest;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -14,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.jsoft.pos.entity.Person;
 import com.jsoft.pos.service.PersonService;
 
-public abstract class PersonController<T extends Person, ID extends Serializable> {
+public abstract class PersonController<T extends Person> {
 
-	protected abstract PersonService<T, ID> getService();
+	protected abstract PersonService<T> getService();
 
 	@GetMapping("/search")
 	public ResponseEntity<List<T>> search(@RequestParam("name") String name, 
@@ -33,7 +32,7 @@ public abstract class PersonController<T extends Person, ID extends Serializable
 	}
 	
 	@GetMapping("/find/{id}")
-	public ResponseEntity<T> findById(@PathVariable("id") ID id) {
+	public ResponseEntity<T> findById(@PathVariable("id") int id) {
 		return ResponseEntity.ok(getService().findById(id));
 	}
 

@@ -2,9 +2,9 @@ package com.jsoft.pos.repo;
 
 import java.util.List;
 
-import com.jsoft.pos.service.search.SearchCriteria;
+import com.jsoft.pos.service.search.Search;
 
 public interface SearchableRepository<T> {
-	List<T> search(SearchCriteria crt);
-	long count(SearchCriteria crt);
+	List<T> search(Search search);
+	long count(Search search);
 }

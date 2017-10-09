@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jsoft.pos.entity.Trade;
 import com.jsoft.pos.repo.TradeRepo;
-import com.jsoft.pos.service.search.TradeSearchCriteria;
+import com.jsoft.pos.service.search.TradeSearch;
 
 @Transactional
 public abstract class TradeService<T extends Trade> {
@@ -15,31 +15,31 @@ public abstract class TradeService<T extends Trade> {
 	protected abstract TradeRepo<T> getRepo();
 	
 	public List<T> search(String dateFrom, String dateTo, int employeeId, int offset, int limit) {
-		TradeSearchCriteria crt = new TradeSearchCriteria(offset, limit);
+		TradeSearch search = new TradeSearch(offset, limit);
 		
 		if ((null != dateFrom && !dateFrom.isEmpty()) && 
 				(null != dateTo && !dateTo.isEmpty())) {
-			crt.setDateFrom(LocalDate.parse(dateFrom));
-    			crt.setDateTo(LocalDate.parse(dateTo));
+			search.setDateFrom(LocalDate.parse(dateFrom));
+    			search.setDateTo(LocalDate.parse(dateTo));
 		}
 		
-		crt.setEmployeeId(employeeId);
+		search.setEmployeeId(employeeId);
 		
-		return getRepo().search(crt);
+		return getRepo().search(search);
 	}
 	
 	public long count(String dateFrom, String dateTo, int employeeId) {
-		TradeSearchCriteria crt = new TradeSearchCriteria(0, 0);
+		TradeSearch search = new TradeSearch();
 		
 		if ((null != dateFrom && !dateFrom.isEmpty()) && 
 				(null != dateTo && !dateTo.isEmpty())) {
-			crt.setDateFrom(LocalDate.parse(dateFrom));
-    			crt.setDateTo(LocalDate.parse(dateTo));
+			search.setDateFrom(LocalDate.parse(dateFrom));
+    			search.setDateTo(LocalDate.parse(dateTo));
 		}
 		
-		crt.setEmployeeId(employeeId);
+		search.setEmployeeId(employeeId);
 		
-		return getRepo().count(crt);
+		return getRepo().count(search);
 	}
 
 	public T findById(long id) {

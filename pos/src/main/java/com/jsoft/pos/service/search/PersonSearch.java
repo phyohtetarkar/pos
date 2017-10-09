@@ -3,17 +3,16 @@ package com.jsoft.pos.service.search;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PersonSearchCriteria implements SearchCriteria {
+public class PersonSearch extends Search {
 
 	private String name;
+	
+	public PersonSearch() {
+		super(0, 0);
+	}
 
-	private int offset;
-	private int limit;
-
-	public PersonSearchCriteria(int offset, int limit) {
-		super();
-		this.offset = offset;
-		this.limit = limit;
+	public PersonSearch(int offset, int limit) {
+		super(offset, limit);
 	}
 
 	@Override
@@ -37,16 +36,6 @@ public class PersonSearchCriteria implements SearchCriteria {
 		}
 		
 		return params;
-	}
-
-	@Override
-	public int getOffset() {
-		return offset;
-	}
-
-	@Override
-	public int getLimit() {
-		return limit;
 	}
 
 	public String getName() {

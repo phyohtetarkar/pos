@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jsoft.pos.entity.Invoice;
 import com.jsoft.pos.repo.InvoiceRepo;
-import com.jsoft.pos.service.search.InvoiceSearchCriteria;
+import com.jsoft.pos.service.search.InvoiceSearch;
 
 @Service
 @Transactional
@@ -20,26 +20,26 @@ public class InvoiceService extends BasicService<Invoice, Long> {
     private InvoiceRepo repo;
 	
 	public List<Invoice> search(String dateFrom, String dateTo, int offset, int limit) {
-		InvoiceSearchCriteria crt = new InvoiceSearchCriteria(offset, limit);
+		InvoiceSearch search = new InvoiceSearch(offset, limit);
 		
 		if ((null != dateFrom && !dateFrom.isEmpty()) && 
 				(null != dateTo && !dateTo.isEmpty())) {
-			crt.setDateFrom(LocalDate.parse(dateFrom));
-    			crt.setDateTo(LocalDate.parse(dateTo));
+			search.setDateFrom(LocalDate.parse(dateFrom));
+    			search.setDateTo(LocalDate.parse(dateTo));
 		}
-		return repo.search(crt);
+		return repo.search(search);
 	}
 	
 	public long count(String dateFrom, String dateTo) {
-		InvoiceSearchCriteria crt = new InvoiceSearchCriteria(0, 0);
+		InvoiceSearch search = new InvoiceSearch(0, 0);
 		
 		if ((null != dateFrom && !dateFrom.isEmpty()) && 
 				(null != dateTo && !dateTo.isEmpty())) {
-			crt.setDateFrom(LocalDate.parse(dateFrom));
-    			crt.setDateTo(LocalDate.parse(dateTo));
+			search.setDateFrom(LocalDate.parse(dateFrom));
+    			search.setDateTo(LocalDate.parse(dateTo));
 		}
 		
-		return repo.count(crt);
+		return repo.count(search);
 	}
 
     public void delete(long id) {

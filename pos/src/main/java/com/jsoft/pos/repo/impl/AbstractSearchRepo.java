@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import com.jsoft.pos.repo.SearchableRepository;
-import com.jsoft.pos.service.search.SearchCriteria;
+import com.jsoft.pos.service.search.Search;
 
 public abstract class AbstractSearchRepo<T> implements SearchableRepository<T> {
 
@@ -21,9 +21,9 @@ public abstract class AbstractSearchRepo<T> implements SearchableRepository<T> {
 	}
 
 	@Override
-	public List<T> search(SearchCriteria crt) {
-		String where = crt.getWhere();
-		Map<String, Object> params = crt.getParams();
+	public List<T> search(Search search) {
+		String where = search.getWhere();
+		Map<String, Object> params = search.getParams();
 		
 		StringBuffer sb = new StringBuffer(String.format("select t from %s t ", type.getSimpleName()));
 		sb.append("where t.deleted = :deleted ");
@@ -40,9 +40,9 @@ public abstract class AbstractSearchRepo<T> implements SearchableRepository<T> {
 		
 		query.setParameter("deleted", false);
 		
-		if (crt.getLimit() > 0) {
-			query.setFirstResult(crt.getOffset());
-			query.setMaxResults(crt.getLimit());
+		if (search.getLimit() > 0) {
+			query.setFirstResult(search.getOffset());
+			query.setMaxResults(search.getLimit());
 		}	
 
 		if (null != params && !params.isEmpty()) {
@@ -55,9 +55,9 @@ public abstract class AbstractSearchRepo<T> implements SearchableRepository<T> {
 	}
 
 	@Override
-	public long count(SearchCriteria crt) {
-		String where = crt.getWhere();
-		Map<String, Object> params = crt.getParams();
+	public long count(Search search) {
+		String where = search.getWhere();
+		Map<String, Object> params = search.getParams();
 		
 		StringBuffer sb = new StringBuffer(String.format("select count(t) from %s t ", type.getSimpleName()));
 		sb.append("where t.deleted = :deleted ");

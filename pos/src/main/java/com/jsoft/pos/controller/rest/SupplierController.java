@@ -10,13 +10,13 @@ import com.jsoft.pos.service.SupplierService;
 
 @RestController
 @RequestMapping("/supplier")
-public class SupplierController extends PersonController<Supplier, Integer> {
+public class SupplierController extends PersonController<Supplier> {
 
 	@Autowired
     private SupplierService service;
 
 	@Override
-	protected PersonService<Supplier, Integer> getService() {
+	protected PersonService<Supplier> getService() {
 		return service;
 	}
 

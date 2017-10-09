@@ -10,13 +10,13 @@ import com.jsoft.pos.service.PersonService;
 
 @RestController
 @RequestMapping("/employee")
-public class EmployeeController extends PersonController<Employee, Integer> {
+public class EmployeeController extends PersonController<Employee> {
 
 	@Autowired
     private EmployeeService service;
 
 	@Override
-	protected PersonService<Employee, Integer> getService() {
+	protected PersonService<Employee> getService() {
 		return service;
 	}
 

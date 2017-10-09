@@ -3,19 +3,18 @@ package com.jsoft.pos.service.search;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ItemSearchCriteria implements SearchCriteria {
+public class ItemSearch extends Search {
 
 	private String code;
 	private String name;
 	private int categoryId;
 	
-	private int offset;
-	private int limit;
+	public ItemSearch() {
+		super(0, 0);
+	}
 	
-	public ItemSearchCriteria(int offset, int limit) {
-		super();
-		this.offset = offset;
-		this.limit = limit;
+	public ItemSearch(int offset, int limit) {
+		super(offset, limit);
 	}
 
 	@Override
@@ -57,16 +56,6 @@ public class ItemSearchCriteria implements SearchCriteria {
 		}
 	
 		return params;
-	}
-
-	@Override
-	public int getOffset() {
-		return offset;
-	}
-
-	@Override
-	public int getLimit() {
-		return limit;
 	}
 
 	public String getCode() {

@@ -4,18 +4,17 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InvoiceSearchCriteria implements SearchCriteria {
+public class InvoiceSearch extends Search {
 
 	private LocalDate dateFrom;
 	private LocalDate dateTo;
-
-	private int offset;
-	private int limit;
-
-	public InvoiceSearchCriteria(int offset, int limit) {
-		super();
-		this.offset = offset;
-		this.limit = limit;
+	
+	public InvoiceSearch() {
+		super(0, 0);
+	}
+	
+	public InvoiceSearch(int offset, int limit) {
+		super(offset, limit);
 	}
 
 	@Override
@@ -40,16 +39,6 @@ public class InvoiceSearchCriteria implements SearchCriteria {
 		}
 
 		return params;
-	}
-
-	@Override
-	public int getOffset() {
-		return offset;
-	}
-
-	@Override
-	public int getLimit() {
-		return limit;
 	}
 
 	public void setDateFrom(LocalDate dateFrom) {

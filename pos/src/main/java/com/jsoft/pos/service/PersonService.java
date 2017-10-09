@@ -1,29 +1,28 @@
 package com.jsoft.pos.service;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jsoft.pos.entity.Person;
 import com.jsoft.pos.repo.PersonRepo;
-import com.jsoft.pos.service.search.PersonSearchCriteria;
+import com.jsoft.pos.service.search.PersonSearch;
 
 @Transactional
-public abstract class PersonService<T extends Person, ID extends Serializable> extends BasicService<T, ID> {
+public abstract class PersonService<T extends Person> extends BasicService<T, Integer> {
 
-	protected abstract PersonRepo<T, ID> getRepo();
+	protected abstract PersonRepo<T> getRepo();
 	
 	public List<T> search(String name, int offset, int limit) {
-		PersonSearchCriteria crt = new PersonSearchCriteria(offset, limit);
-		crt.setName(name);
-		return getRepo().search(crt);
+		PersonSearch search = new PersonSearch(offset, limit);
+		search.setName(name);
+		return getRepo().search(search);
 	}
 	
 	public long count(String name) {
-		PersonSearchCriteria crt = new PersonSearchCriteria(0, 0);
-		crt.setName(name);
-		return getRepo().count(crt);
+		PersonSearch search = new PersonSearch();
+		search.setName(name);
+		return getRepo().count(search);
 	}
 
 	public void delete(int id) {
